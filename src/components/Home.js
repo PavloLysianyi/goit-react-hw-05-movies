@@ -1,3 +1,4 @@
+// Home.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -28,15 +29,11 @@ const Home = () => {
     <div>
       <h2>Trending Movies</h2>
       <ul>
-        {trendingMovies.length > 0 ? (
-          trendingMovies.map(movie => (
-            <li key={movie.id}>
-              <Link to={`/${movie.id}`}>{movie.title}</Link>
-            </li>
-          ))
-        ) : (
-          <p>No trending movies available</p>
-        )}
+        {trendingMovies.map(movie => (
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+          </li>
+        ))}
       </ul>
     </div>
   );

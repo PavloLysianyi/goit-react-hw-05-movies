@@ -1,3 +1,4 @@
+// Movies.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -43,9 +44,7 @@ const Movies = () => {
       <ul>
         {searchResults.map(movie => (
           <li key={movie.id}>
-            <Link to={`/goit-react-hw-05-movies/movies/${movie.id}`}>
-              {movie.title}
-            </Link>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
           </li>
         ))}
       </ul>

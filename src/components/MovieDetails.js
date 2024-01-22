@@ -1,7 +1,7 @@
+// MovieDetails.js
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, Routes, Route } from 'react-router-dom';
-import Cast from './Cast';
-import Reviews from './Reviews';
+import { useParams, Link } from 'react-router-dom';
+import CastAndReviews from './CastAndReviews';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -31,16 +31,17 @@ const MovieDetails = () => {
     <div>
       <h2>{movieDetails.title}</h2>
       <p>{movieDetails.overview}</p>
+      <img
+        src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
+        alt={`${movieDetails.title} Poster`}
+      />
 
       {/* Додаємо кнопки для переходу на сторінки Cast та Reviews */}
       <Link to={`/movies/${movieId}/cast`}>Cast</Link>
       <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
 
-      {/* Додаємо роути для відображення акторського складу та відгуків */}
-      <Routes>
-        <Route path="cast" element={<Cast />} />
-        <Route path="reviews" element={<Reviews />} />
-      </Routes>
+      {/* Додаємо роут для відображення акторського складу та відгуків */}
+      <CastAndReviews movieId={movieId} />
     </div>
   );
 };
