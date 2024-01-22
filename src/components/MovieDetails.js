@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Cast from './Cast';
-import Reviews from './Reviews';
-import { apiKey } from './api';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { useParams, Link } from 'react-router-dom';
+
+const Cast = lazy(() => import('./Cast'));
+const Reviews = lazy(() => import('./Reviews'));
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -13,6 +13,7 @@ const MovieDetails = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
+        const apiKey = 'a489cf0433455f138fd59ea00245d30d';
         const response = await fetch(
           `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
         );
@@ -54,22 +55,32 @@ const MovieDetails = () => {
         <p>Genres: {movieDetails.genres.map(genre => genre.name).join(', ')}</p>
       )}
 
-      <img
-        src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-        alt={`${movieDetails.title} Poster`}
-      />
+      {movieDetails.poster_path && (
+        <img
+          src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
+          alt={`${movieDetails.title} Poster`}
+        />
+      )}
 
       <div>
         <h3>Additional Information</h3>
         <button onClick={() => handleToggleDetails('cast')}>
           {showCast ? 'Hide Cast' : 'Show Cast'}
         </button>
-        {showCast && <Cast movieId={movieId} />}
+        {showCast && (
+          <Suspense fallback={<div>Loading Cast...</div>}>
+            <Cast movieId={movieId} />
+          </Suspense>
+        )}
 
         <button onClick={() => handleToggleDetails('reviews')}>
           {showReviews ? 'Hide Reviews' : 'Show Reviews'}
         </button>
-        {showReviews && <Reviews movieId={movieId} />}
+        {showReviews && (
+          <Suspense fallback={<div>Loading Reviews...</div>}>
+            <Reviews movieId={movieId} />
+          </Suspense>
+        )}
       </div>
     </div>
   );
