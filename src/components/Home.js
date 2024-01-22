@@ -1,4 +1,3 @@
-// Home.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +14,8 @@ const Home = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setTrendingMovies(data.results);
+          const filteredMovies = data.results.filter(movie => movie.title);
+          setTrendingMovies(filteredMovies);
         }
       } catch (error) {
         console.error('Error fetching trending movies:', error);
