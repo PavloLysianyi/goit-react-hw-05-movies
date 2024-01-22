@@ -6,14 +6,10 @@ const Header = () => {
     <nav>
       <ul>
         <li>
-          <NavLink to="/" activeClassName="active" exact>
-            Home
-          </NavLink>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <NavLink to="/movies" activeClassName="active">
-            Movies
-          </NavLink>
+          <NavLink to="/movies">Movies</NavLink>
         </li>
       </ul>
     </nav>

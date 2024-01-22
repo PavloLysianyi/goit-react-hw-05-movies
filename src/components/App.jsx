@@ -1,18 +1,18 @@
-// App.js
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Header';
-import Home from './Home';
-import Movies from './Movies';
-import MovieDetails from './MovieDetails';
-import Cast from './Cast';
-import Reviews from './Reviews';
+
+const Home = React.lazy(() => import('./Home'));
+const Movies = React.lazy(() => import('./Movies'));
+const MovieDetails = React.lazy(() => import('./MovieDetails'));
+const Cast = React.lazy(() => import('./Cast'));
+const Reviews = React.lazy(() => import('./Reviews'));
 
 const App = () => {
   return (
-    <Router basename="/goit-react-hw-05-movies">
+    <Router>
       <div>
-        <Header /> {/* Додано компонент хедера */}
+        <Header />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<Home />} />

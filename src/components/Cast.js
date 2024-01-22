@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { apiKey } from './api';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -8,7 +9,6 @@ const Cast = () => {
   useEffect(() => {
     const fetchMovieCast = async () => {
       try {
-        const apiKey = 'a489cf0433455f138fd59ea00245d30d';
         const response = await fetch(
           `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`
         );

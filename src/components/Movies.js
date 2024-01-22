@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { apiKey } from './api';
 
 const Movies = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -8,7 +9,6 @@ const Movies = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const apiKey = 'a489cf0433455f138fd59ea00245d30d';
         const endpoint = searchTerm
           ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`
           : `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}`;
