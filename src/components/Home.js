@@ -31,9 +31,7 @@ const Home = () => {
         {trendingMovies.length > 0 ? (
           trendingMovies.map(movie => (
             <li key={movie.id}>
-              <Link to={`/goit-react-hw-05-movies/movies/${movie.id}`}>
-                {movie.title}
-              </Link>
+              <Link to={`/${movie.id}`}>{movie.title}</Link>
             </li>
           ))
         ) : (

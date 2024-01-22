@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, Routes, Route } from 'react-router-dom';
+import Cast from './Cast';
+import Reviews from './Reviews';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -28,6 +30,17 @@ const MovieDetails = () => {
   return (
     <div>
       <h2>{movieDetails.title}</h2>
+      <p>{movieDetails.overview}</p>
+
+      {/* Додаємо кнопки для переходу на сторінки Cast та Reviews */}
+      <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+      <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+
+      {/* Додаємо роути для відображення акторського складу та відгуків */}
+      <Routes>
+        <Route path="cast" element={<Cast />} />
+        <Route path="reviews" element={<Reviews />} />
+      </Routes>
     </div>
   );
 };
