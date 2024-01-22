@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Cast from './Cast';
 import Reviews from './Reviews';
 
@@ -14,7 +14,7 @@ const MovieDetails = () => {
       try {
         const apiKey = 'a489cf0433455f138fd59ea00245d30d';
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=videos,images`
+          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits,reviews`
         );
 
         if (response.ok) {
@@ -42,19 +42,19 @@ const MovieDetails = () => {
   return (
     <div>
       <h2>{movieDetails.title}</h2>
+      {movieDetails.release_date && (
+        <p>Year: {new Date(movieDetails.release_date).getFullYear()}</p>
+      )}
       <p>User Score: {movieDetails.vote_average}</p>
       <p>Overview: {movieDetails.overview}</p>
-      <p>
-        Genres:{' '}
-        {movieDetails.genres &&
-          movieDetails.genres.map(genre => genre.name).join(', ')}
-      </p>
-      {movieDetails.poster_path && (
-        <img
-          src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-          alt={`${movieDetails.title} Poster`}
-        />
+      {movieDetails.genres && (
+        <p>Genres: {movieDetails.genres.map(genre => genre.name).join(', ')}</p>
       )}
+
+      <img
+        src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
+        alt={`${movieDetails.title} Poster`}
+      />
 
       <button onClick={() => handleToggleDetails('cast')}>
         {showCast ? 'Hide Cast' : 'Show Cast'}
@@ -65,6 +65,8 @@ const MovieDetails = () => {
         {showReviews ? 'Hide Reviews' : 'Show Reviews'}
       </button>
       {showReviews && <Reviews movieId={movieId} />}
+
+      <Link to="/movies">Go Back</Link>
     </div>
   );
 };
