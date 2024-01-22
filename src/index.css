@@ -9,11 +9,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  font-family: 'Helvetica', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f8f8;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 header {
@@ -37,6 +35,18 @@ nav a {
   margin: 0 0.5rem;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+}
+
+nav {
+  display: block;
+}
+
+.active {
+  text-decoration: underline;
+}
+
+.nav-link:active {
+  text-decoration: none;
 }
 
 nav a:hover {

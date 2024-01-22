@@ -1,12 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div>
-      <Link to="/">Home</Link>
-      <Link to="/movies">Movies</Link>
-    </div>
+    <nav>
+      <ul>
+        <li>
+          <NavLink to="/" activeClassName="active" exact>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/movies" activeClassName="active">
+            Movies
+          </NavLink>
+        </li>
+        {/* Додайте інші посилання за потребою */}
+      </ul>
+    </nav>
   );
 };
 
