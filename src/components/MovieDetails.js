@@ -14,7 +14,7 @@ const MovieDetails = () => {
       try {
         const apiKey = 'a489cf0433455f138fd59ea00245d30d';
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits,reviews`
+          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
         );
 
         if (response.ok) {
@@ -41,12 +41,15 @@ const MovieDetails = () => {
 
   return (
     <div>
+      <Link to="/movies">Назад</Link>
       <h2>{movieDetails.title}</h2>
-      {movieDetails.release_date && (
-        <p>Year: {new Date(movieDetails.release_date).getFullYear()}</p>
-      )}
+      <p>
+        Рік випуску:{' '}
+        {movieDetails.release_date && movieDetails.release_date.substring(0, 4)}
+      </p>
       <p>User Score: {movieDetails.vote_average}</p>
       <p>Overview: {movieDetails.overview}</p>
+
       {movieDetails.genres && (
         <p>Genres: {movieDetails.genres.map(genre => genre.name).join(', ')}</p>
       )}
@@ -65,8 +68,6 @@ const MovieDetails = () => {
         {showReviews ? 'Hide Reviews' : 'Show Reviews'}
       </button>
       {showReviews && <Reviews movieId={movieId} />}
-
-      <Link to="/movies">Go Back</Link>
     </div>
   );
 };
