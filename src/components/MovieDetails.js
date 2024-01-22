@@ -1,11 +1,13 @@
-// MovieDetails.js
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import CastAndReviews from './CastAndReviews';
+import { useParams } from 'react-router-dom';
+import Cast from './Cast';
+import Reviews from './Reviews';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
+  const [showCast, setShowCast] = useState(false);
+  const [showReviews, setShowReviews] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -27,6 +29,16 @@ const MovieDetails = () => {
     fetchMovieDetails();
   }, [movieId]);
 
+  const handleToggleDetails = type => {
+    if (type === 'cast') {
+      setShowCast(!showCast);
+      setShowReviews(false);
+    } else if (type === 'reviews') {
+      setShowReviews(!showReviews);
+      setShowCast(false);
+    }
+  };
+
   return (
     <div>
       <h2>{movieDetails.title}</h2>
@@ -36,12 +48,15 @@ const MovieDetails = () => {
         alt={`${movieDetails.title} Poster`}
       />
 
-      {/* Додаємо кнопки для переходу на сторінки Cast та Reviews */}
-      <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-      <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+      <button onClick={() => handleToggleDetails('cast')}>
+        {showCast ? 'Hide Cast' : 'Show Cast'}
+      </button>
+      {showCast && <Cast movieId={movieId} />}
 
-      {/* Додаємо роут для відображення акторського складу та відгуків */}
-      <CastAndReviews movieId={movieId} />
+      <button onClick={() => handleToggleDetails('reviews')}>
+        {showReviews ? 'Hide Reviews' : 'Show Reviews'}
+      </button>
+      {showReviews && <Reviews movieId={movieId} />}
     </div>
   );
 };
