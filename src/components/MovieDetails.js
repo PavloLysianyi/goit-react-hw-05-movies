@@ -14,7 +14,7 @@ const MovieDetails = () => {
       try {
         const apiKey = 'a489cf0433455f138fd59ea00245d30d';
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
+          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=videos,images`
         );
 
         if (response.ok) {
@@ -42,11 +42,19 @@ const MovieDetails = () => {
   return (
     <div>
       <h2>{movieDetails.title}</h2>
-      <p>{movieDetails.overview}</p>
-      <img
-        src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-        alt={`${movieDetails.title} Poster`}
-      />
+      <p>User Score: {movieDetails.vote_average}</p>
+      <p>Overview: {movieDetails.overview}</p>
+      <p>
+        Genres:{' '}
+        {movieDetails.genres &&
+          movieDetails.genres.map(genre => genre.name).join(', ')}
+      </p>
+      {movieDetails.poster_path && (
+        <img
+          src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
+          alt={`${movieDetails.title} Poster`}
+        />
+      )}
 
       <button onClick={() => handleToggleDetails('cast')}>
         {showCast ? 'Hide Cast' : 'Show Cast'}

@@ -43,7 +43,16 @@ const Movies = () => {
       <ul>
         {searchResults.map(movie => (
           <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <Link to={`/movies/${movie.id}`}>
+              <h3>{movie.title}</h3>
+              <p>User Score: {movie.vote_average}</p>
+              <p>Overview: {movie.overview}</p>
+              {movie.genres && (
+                <p>
+                  Genres: {movie.genres.map(genre => genre.name).join(', ')}
+                </p>
+              )}
+            </Link>
           </li>
         ))}
       </ul>
