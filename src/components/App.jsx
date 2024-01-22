@@ -1,5 +1,7 @@
+// App.js
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './Header';
 import Home from './Home';
 import Movies from './Movies';
 import MovieDetails from './MovieDetails';
@@ -10,6 +12,7 @@ const App = () => {
   return (
     <Router basename="/goit-react-hw-05-movies">
       <div>
+        <Header /> {/* Додано компонент хедера */}
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
