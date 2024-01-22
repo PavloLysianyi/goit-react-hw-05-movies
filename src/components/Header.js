@@ -15,7 +15,6 @@ const Header = () => {
             Movies
           </NavLink>
         </li>
-        {/* Додайте інші посилання за потребою */}
       </ul>
     </nav>
   );

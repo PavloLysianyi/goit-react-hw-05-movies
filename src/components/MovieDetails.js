@@ -59,15 +59,18 @@ const MovieDetails = () => {
         alt={`${movieDetails.title} Poster`}
       />
 
-      <button onClick={() => handleToggleDetails('cast')}>
-        {showCast ? 'Hide Cast' : 'Show Cast'}
-      </button>
-      {showCast && <Cast movieId={movieId} />}
+      <div>
+        <h3>Additional Information</h3>
+        <button onClick={() => handleToggleDetails('cast')}>
+          {showCast ? 'Hide Cast' : 'Show Cast'}
+        </button>
+        {showCast && <Cast movieId={movieId} />}
 
-      <button onClick={() => handleToggleDetails('reviews')}>
-        {showReviews ? 'Hide Reviews' : 'Show Reviews'}
-      </button>
-      {showReviews && <Reviews movieId={movieId} />}
+        <button onClick={() => handleToggleDetails('reviews')}>
+          {showReviews ? 'Hide Reviews' : 'Show Reviews'}
+        </button>
+        {showReviews && <Reviews movieId={movieId} />}
+      </div>
     </div>
   );
 };
