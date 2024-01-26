@@ -1,44 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { fetchSearchMovies } from '../components/api';
 import MovieList from './MovieList';
+import SearchForm from './SearchForm';
 
 const Movies = () => {
-  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
-    const fetchMoviesData = async () => {
-      try {
-        const data = await fetchSearchMovies(searchTerm);
-        setSearchResults(data);
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-      }
-    };
-
-    if (searchTerm.trim() !== '') {
-      fetchMoviesData();
-    } else {
-      setSearchResults([]);
+  const handleSearch = async searchTerm => {
+    try {
+      const data = await fetchSearchMovies(searchTerm);
+      setSearchResults(data);
+    } catch (error) {
+      console.error('Error fetching movies:', error);
     }
-  }, [searchTerm]);
-
-  const handleSearchChange = event => {
-    setSearchTerm(event.target.value);
   };
 
   return (
     <div>
-      <h2>{searchTerm ? 'Search Results' : 'Trending Movies'}</h2>
-      <div>
-        <input
-          type="text"
-          placeholder="Search for a movie..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-        <button onClick={() => {}}>Search</button>
-      </div>
+      <h2>{searchResults.length > 0 ? 'Search Results' : 'Trending Movies'}</h2>
+      <SearchForm onSearch={handleSearch} />
       {searchResults.length > 0 && (
         <MovieList movies={searchResults} basePath="/movies" />
       )}

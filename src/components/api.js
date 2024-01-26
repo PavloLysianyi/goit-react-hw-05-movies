@@ -67,9 +67,7 @@ export const fetchMovieDetails = async movieId => {
 
 export const fetchSearchMovies = async searchTerm => {
   try {
-    const endpoint = searchTerm
-      ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`
-      : `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}`;
+    const endpoint = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`;
 
     const response = await fetch(endpoint);
 
