@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { fetchSearchMovies } from '../components/api';
+import MovieList from './MovieList';
 
 const Movies = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,25 +40,7 @@ const Movies = () => {
         <button onClick={() => {}}>Search</button>
       </div>
       {searchResults.length > 0 && (
-        <ul>
-          {searchResults.map(movie => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
-                <h3>{movie.title}</h3>
-                {movie.release_date && (
-                  <p>Year: {new Date(movie.release_date).getFullYear()}</p>
-                )}
-                <p>User Score: {movie.vote_average}</p>
-                <p>Overview: {movie.overview}</p>
-                {movie.genres && (
-                  <p>
-                    Genres: {movie.genres.map(genre => genre.name).join(', ')}
-                  </p>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <MovieList movies={searchResults} basePath="/movies" />
       )}
     </div>
   );
