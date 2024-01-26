@@ -1,8 +1,9 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { fetchMovieDetails } from '../components/api';
 
-const Cast = lazy(() => import('./Cast'));
-const Reviews = lazy(() => import('./Reviews'));
+const Cast = lazy(() => import('../components/Cast'));
+const Reviews = lazy(() => import('../components/Reviews'));
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -11,23 +12,16 @@ const MovieDetails = () => {
   const [showReviews, setShowReviews] = useState(false);
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
+    const fetchData = async () => {
       try {
-        const apiKey = 'a489cf0433455f138fd59ea00245d30d';
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          setMovieDetails(data);
-        }
+        const data = await fetchMovieDetails(movieId);
+        setMovieDetails(data);
       } catch (error) {
         console.error('Error fetching movie details:', error);
       }
     };
 
-    fetchMovieDetails();
+    fetchData();
   }, [movieId]);
 
   const handleToggleDetails = type => {

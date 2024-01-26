@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { apiKey } from './api';
+import { fetchTrendingMovies } from '../components/api';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
-    const fetchTrendingMovies = async () => {
+    const fetchTrendingMoviesData = async () => {
       try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}`
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          const filteredMovies = data.results.filter(movie => movie.title);
-          setTrendingMovies(filteredMovies);
-        }
+        const data = await fetchTrendingMovies();
+        setTrendingMovies(data);
       } catch (error) {
         console.error('Error fetching trending movies:', error);
       }
     };
 
-    fetchTrendingMovies();
+    fetchTrendingMoviesData();
   }, []);
 
   return (

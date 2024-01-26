@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { apiKey } from './api';
+import { fetchSearchMovies } from '../components/api';
 
 const Movies = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchMoviesData = async () => {
       try {
-        const endpoint = searchTerm
-          ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`
-          : `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}`;
-
-        const response = await fetch(endpoint);
-
-        if (response.ok) {
-          const data = await response.json();
-          setSearchResults(data.results);
-        }
+        const data = await fetchSearchMovies(searchTerm);
+        setSearchResults(data);
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
     };
 
     if (searchTerm.trim() !== '') {
-      fetchMovies();
+      fetchMoviesData();
     } else {
       setSearchResults([]);
     }
@@ -34,8 +26,6 @@ const Movies = () => {
   const handleSearchChange = event => {
     setSearchTerm(event.target.value);
   };
-
-  const handleSearch = () => {};
 
   return (
     <div>
@@ -47,7 +37,7 @@ const Movies = () => {
           value={searchTerm}
           onChange={handleSearchChange}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={() => {}}>Search</button>
       </div>
       {searchResults.length > 0 && (
         <ul>
