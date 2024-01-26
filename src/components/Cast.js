@@ -25,12 +25,17 @@ const Cast = () => {
       <ul>
         {cast.map(actor => (
           <li key={actor.id}>
-            {actor.profile_path && (
+            {actor.profile_path ? (
               <>
                 <img
                   src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`}
                   alt={`${actor.name} Profile`}
                 />
+                <p>{actor.name}</p>
+              </>
+            ) : (
+              <>
+                <img src={actor.profile_path} alt={`${actor.name} Profile`} />
                 <p>{actor.name}</p>
               </>
             )}

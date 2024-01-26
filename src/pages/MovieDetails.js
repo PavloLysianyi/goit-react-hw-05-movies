@@ -1,6 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieDetails } from '../components/api';
+import MovieListItem from './MovieListItem';
 
 const Cast = lazy(() => import('../components/Cast'));
 const Reviews = lazy(() => import('../components/Reviews'));
@@ -37,24 +38,7 @@ const MovieDetails = () => {
   return (
     <div>
       <Link to="/movies">Назад</Link>
-      <h2>{movieDetails.title}</h2>
-      <p>
-        Рік випуску:{' '}
-        {movieDetails.release_date && movieDetails.release_date.substring(0, 4)}
-      </p>
-      <p>User Score: {movieDetails.vote_average}</p>
-      <p>Overview: {movieDetails.overview}</p>
-
-      {movieDetails.genres && (
-        <p>Genres: {movieDetails.genres.map(genre => genre.name).join(', ')}</p>
-      )}
-
-      {movieDetails.poster_path && (
-        <img
-          src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-          alt={`${movieDetails.title} Poster`}
-        />
-      )}
+      <MovieListItem movie={movieDetails} />
 
       <div>
         <h3>Additional Information</h3>
