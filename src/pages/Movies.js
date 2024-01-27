@@ -7,20 +7,22 @@ import SearchForm from './SearchForm';
 
 const Movies = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSearch = value => {
-    setSearchTerm(value);
+    setSearchParams({ search: value });
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const searchTerm = searchParams.get('search');
+
         if (searchTerm !== '') {
-          setSearchParams({ search: searchTerm });
           const data = await fetchSearchMovies(searchTerm);
           setSearchResults(data);
+        } else {
+          setSearchResults([]);
         }
       } catch (error) {
         console.error('Error fetching movies:', error);
@@ -28,12 +30,12 @@ const Movies = () => {
     };
 
     fetchData();
-  }, [searchParams, searchTerm, setSearchParams]);
+  }, [searchParams]);
 
   return (
     <div>
       <SearchForm onSearch={handleSearch} />
-      {searchTerm !== '' && <MovieList movies={searchResults} />}
+      {searchParams.has('search') && <MovieList movies={searchResults} />}
     </div>
   );
 };

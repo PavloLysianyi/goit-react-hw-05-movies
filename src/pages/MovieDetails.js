@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from '../components/api';
 import MovieListItem from './MovieListItem';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
+  const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +23,7 @@ const MovieDetails = () => {
 
   return (
     <div>
-      <Link to="/movies">Назад</Link>
+      <Link to={location.state?.from || '/'}>Назад</Link>
       <MovieListItem movie={movieDetails} />
 
       <div>

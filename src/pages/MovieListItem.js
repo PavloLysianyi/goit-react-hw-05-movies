@@ -1,6 +1,8 @@
 import React from 'react';
 
 const MovieListItem = ({ movie }) => {
+  const defaultImage = 'https://placekitten.com/200/300';
+
   return (
     <div>
       <h2>{movie.title}</h2>
@@ -14,7 +16,11 @@ const MovieListItem = ({ movie }) => {
       )}
       {movie.poster_path && (
         <img
-          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+              : defaultImage
+          }
           alt={`${movie.title} Poster`}
         />
       )}
