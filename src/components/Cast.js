@@ -19,26 +19,23 @@ const Cast = () => {
     fetchCastData();
   }, [movieId]);
 
+  const defaultImage = 'https://placekitten.com/200/300';
+
   return (
     <div>
       <h2>Cast</h2>
       <ul>
         {cast.map(actor => (
           <li key={actor.id}>
-            {actor.profile_path ? (
-              <>
-                <img
-                  src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`}
-                  alt={`${actor.name} Profile`}
-                />
-                <p>{actor.name}</p>
-              </>
-            ) : (
-              <>
-                <img src={actor.profile_path} alt={`${actor.name} Profile`} />
-                <p>{actor.name}</p>
-              </>
-            )}
+            <img
+              src={
+                actor.profile_path
+                  ? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
+                  : defaultImage
+              }
+              alt={`${actor.name} Profile`}
+            />
+            <p>{actor.name}</p>
           </li>
         ))}
       </ul>
