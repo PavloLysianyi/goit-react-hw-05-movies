@@ -17,11 +17,8 @@ const Movies = () => {
 
   return (
     <div>
-      <h2>{searchResults.length > 0 ? 'Search Results' : 'Trending Movies'}</h2>
       <SearchForm onSearch={handleSearch} />
-      {searchResults.length > 0 && (
-        <MovieList movies={searchResults} basePath="/movies" />
-      )}
+      <MovieList movies={searchResults} />
     </div>
   );
 };

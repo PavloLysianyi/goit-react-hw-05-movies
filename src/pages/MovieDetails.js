@@ -42,21 +42,19 @@ const MovieDetails = () => {
 
       <div>
         <h3>Additional Information</h3>
-        <button onClick={() => handleToggleDetails('cast')}>
-          {showCast ? 'Hide Cast' : 'Show Cast'}
-        </button>
-        {showCast && (
-          <Suspense fallback={<div>Loading Cast...</div>}>
-            <Cast movieId={movieId} />
-          </Suspense>
-        )}
 
-        <button onClick={() => handleToggleDetails('reviews')}>
-          {showReviews ? 'Hide Reviews' : 'Show Reviews'}
-        </button>
-        {showReviews && (
-          <Suspense fallback={<div>Loading Reviews...</div>}>
-            <Reviews movieId={movieId} />
+        <Link to="#" onClick={() => handleToggleDetails('cast')}>
+          Cast
+        </Link>
+
+        <Link to="#" onClick={() => handleToggleDetails('reviews')}>
+          Reviews
+        </Link>
+
+        {(showCast || showReviews) && (
+          <Suspense fallback={<div>Loading...</div>}>
+            {showCast && <Cast movieId={movieId} />}
+            {showReviews && <Reviews movieId={movieId} />}
           </Suspense>
         )}
       </div>
